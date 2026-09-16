@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top Ten Hits — Şu An Ne Popüler?</title>
+<meta name="description" content="Spotify, Netflix, TikTok, Trendyol, X ve daha fazlasının Top 10 listelerini tek bir dikey akışta topluyoruz. 80'lerin kaset kültürünü bugünün FOMO hızına taşıyan retro-modern trend hub'ı.">
+<style>
+  :root{
+    --bg:#0b0a16; --bg-alt:#100e1c; --surface:#161327; --surface-2:#1f1a35; --border:#2c2645;
+    --text:#f3f1fa; --text-dim:#a89fc2; --text-dimmer:#756c94;
+    --pink:#db2777; --purple:#8b5cf6; --cyan:#06b6d4;
+    --pink-soft:rgba(219,39,119,.14); --purple-soft:rgba(139,92,246,.14); --cyan-soft:rgba(6,182,212,.14);
+    --up:#34d399; --down:#f87171;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif;
+    font-variant-numeric:tabular-nums; overflow-x:hidden;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  img,svg{ display:block; }
+  .wrap{ max-width:1120px; margin:0 auto; padding-inline:24px; }
+  @media (max-width:640px){ .wrap{ padding-inline:18px; } }
+
+  .eyebrow{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--purple); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+  .eyebrow::before{ content:''; width:20px; height:1px; background:var(--purple); }
+  h2.section-title{ font-family:'Bebas Neue',cursive; font-size:clamp(30px,4.5vw,44px); letter-spacing:.02em; line-height:1.05; margin:0 0 16px; text-wrap:balance; }
+  .section-lead{ color:var(--text-dim); font-size:16px; line-height:1.7; max-width:56ch; margin:0 0 40px; }
+  section{ padding-block:88px; position:relative; }
+  @media (max-width:640px){ section{ padding-block:56px; } }
+
+  /* ---------------- NAV ---------------- */
+  header.nav{
+    position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:rgba(11,10,22,.75); border-bottom:1px solid var(--border);
+  }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding-block:14px; }
+  .nav-brand{ display:flex; align-items:center; gap:9px; }
+  .nav-brand-text{ font-family:'Bebas Neue',cursive; font-size:19px; letter-spacing:.06em; }
+  .nav-links{ display:flex; align-items:center; gap:30px; }
+  .nav-links a{ font-size:14px; color:var(--text-dim); font-weight:500; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-cta{ border:none; border-radius:999px; padding:10px 20px; background:linear-gradient(90deg,var(--pink),var(--purple)); color:#fff; font-size:13.5px; font-weight:700; white-space:nowrap; }
+  .nav-toggle{ display:none; border:none; background:none; color:var(--text); padding:6px; }
+  .nav-mobile{ display:none; flex-direction:column; gap:4px; padding:8px 0 16px; border-top:1px solid var(--border); }
+  .nav-mobile a{ padding:10px 4px; font-size:14.5px; color:var(--text-dim); }
+  @media (max-width:760px){
+    .nav-links{ display:none; }
+    .nav-toggle{ display:flex; }
+    .nav-mobile.open{ display:flex; }
+  }
+
+  /* ---------------- HERO ---------------- */
+  .hero{ padding-block:72px 60px; overflow:hidden; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } }
+  .hero-glow{ position:absolute; border-radius:999px; filter:blur(90px); opacity:.28; pointer-events:none; z-index:0; }
+  .hero h1{ font-family:'Bebas Neue',cursive; font-size:clamp(42px,7vw,72px); line-height:.98; letter-spacing:.01em; margin:0 0 20px; text-wrap:balance; position:relative; z-index:1; }
+  .hero h1 span{ background:linear-gradient(90deg,var(--pink),var(--purple) 55%,var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p.lead{ font-size:17px; line-height:1.7; color:var(--text-dim); max-width:46ch; margin:0 0 32px; position:relative; z-index:1; }
+  .hero-ctas{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; position:relative; z-index:1; }
+  .store-badge{ display:flex; align-items:center; gap:10px; border:1px solid var(--border); background:var(--surface); border-radius:12px; padding:10px 16px; }
+  .store-badge svg{ flex:none; color:var(--text-dim); }
+  .store-badge .store-text{ display:flex; flex-direction:column; line-height:1.25; }
+  .store-badge .store-text small{ font-size:9.5px; color:var(--text-dimmer); font-family:'JetBrains Mono',monospace; letter-spacing:.04em; text-transform:uppercase; }
+  .store-badge .store-text b{ font-size:14px; }
+  .pill-soon{ font-family:'JetBrains Mono',monospace; font-size:9px; padding:2px 6px; border-radius:4px; background:var(--purple-soft); color:var(--purple); margin-left:8px; }
+
+  /* phone mock in hero */
+  .phone-mock{ position:relative; z-index:1; width:280px; height:580px; margin:0 auto; background:#05040a; border-radius:34px; border:7px solid #05040a; box-shadow:0 40px 80px -30px rgba(20,10,45,.6); overflow:hidden; }
+  .phone-screen{ position:absolute; inset:0; background:var(--bg); display:flex; flex-direction:column; }
+  .pm-top{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px 8px; flex:none; }
+  .pm-brand{ display:flex; align-items:center; gap:6px; font-family:'Bebas Neue',cursive; font-size:12px; letter-spacing:.05em; }
+  .pm-loc{ font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dimmer); }
+  .pm-tabs{ display:flex; gap:6px; padding:4px 14px 10px; }
+  .pm-tab{ font-family:'JetBrains Mono',monospace; font-size:9px; padding:5px 9px; border-radius:999px; border:1px solid var(--border); color:var(--text-dimmer); }
+  .pm-tab.active{ border-color:var(--pink); background:var(--pink-soft); color:var(--pink); font-weight:700; }
+  .pm-body{ flex:1; padding:0 14px 14px; }
+  .pm-card{ background:var(--surface); border:1px solid var(--pink); border-radius:13px; padding:11px; margin-bottom:10px; box-shadow:0 10px 24px -16px var(--pink); }
+  .pm-card-head{ display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .pm-card-ic{ width:24px; height:24px; border-radius:7px; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; }
+  .pm-card-ic svg{ width:13px; height:13px; }
+  .pm-card-title{ font-size:10.5px; font-weight:700; }
+  .pm-row{ display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid var(--border); }
+  .pm-row:last-child{ border-bottom:none; }
+  .pm-rank{ width:17px; height:17px; border-radius:5px; font-family:'Audiowide',cursive; font-size:8px; display:flex; align-items:center; justify-content:center; color:#fff; flex:none; }
+  .pm-rank.r1{ background:linear-gradient(135deg,var(--pink),var(--purple)); }
+  .pm-rank.r2{ background:linear-gradient(135deg,var(--purple),var(--cyan)); }
+  .pm-rank.r3{ background:linear-gradient(135deg,var(--cyan),var(--pink)); }
+  .pm-row-title{ font-size:10px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pm-row-trend{ font-family:'JetBrains Mono',monospace; font-size:8.5px; color:var(--up); flex:none; }
+  .pm-card-collapsed{ background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:10px 11px; margin-bottom:9px; display:flex; align-items:center; gap:8px; }
+  .pm-card-collapsed .pm-card-ic{ background:var(--cyan-soft); color:var(--cyan); }
+  .pm-collapsed-text{ font-size:9.5px; color:var(--text-dimmer); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+  .pm-collapsed-title{ font-size:10px; font-weight:700; margin-bottom:2px; }
+
+  /* ---------------- PROBLEM / SOLUTION ---------------- */
+  .ps-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:700px){ .ps-grid{ grid-template-columns:1fr; } }
+  .ps-card{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px 28px; }
+  .ps-card.problem{ border-left:3px solid var(--pink); }
+  .ps-card.solution{ border-left:3px solid var(--cyan); }
+  .ps-card h3{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; margin:0 0 14px; }
+  .ps-card.problem h3{ color:var(--pink); }
+  .ps-card.solution h3{ color:var(--cyan); }
+  .ps-card ul{ margin:0; padding-left:18px; color:var(--text-dim); font-size:14.5px; line-height:1.75; }
+  .ps-card li{ margin-bottom:6px; }
+
+  /* ---------------- CATEGORIES ---------------- */
+  .cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:860px){ .cat-grid{ grid-template-columns:1fr; } }
+  .cat-card{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px; transition:border-color .25s, transform .2s; }
+  .cat-card:hover{ transform:translateY(-3px); }
+  .cat-card.c1{ border-top:2px solid var(--pink); }
+  .cat-card.c2{ border-top:2px solid var(--cyan); }
+  .cat-card.c3{ border-top:2px solid var(--purple); }
+  .cat-icon{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+  .cat-card.c1 .cat-icon{ background:var(--pink-soft); color:var(--pink); }
+  .cat-card.c2 .cat-icon{ background:var(--cyan-soft); color:var(--cyan); }
+  .cat-card.c3 .cat-icon{ background:var(--purple-soft); color:var(--purple); }
+  .cat-card h3{ font-family:'Bebas Neue',cursive; font-size:22px; letter-spacing:.03em; margin:0 0 10px; }
+  .cat-card p{ color:var(--text-dim); font-size:13.5px; line-height:1.6; margin:0 0 16px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chip{ font-family:'JetBrains Mono',monospace; font-size:10.5px; padding:4px 9px; border-radius:999px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-dim); }
+
+  /* ---------------- LIVE PREVIEW (reused accordion) ---------------- */
+  .preview-shell{ max-width:460px; margin:0 auto; }
+  .lp-toolbar{ display:flex; justify-content:flex-end; margin-bottom:10px; }
+  .lp-toolbar span{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-dimmer); }
+  .lp-card{ background:var(--surface); border:1px solid var(--border); border-radius:16px; margin-bottom:14px; transition:box-shadow .3s, border-color .3s; }
+  .lp-card.open{ border-color:color-mix(in srgb, var(--accent) 55%, var(--border)); box-shadow:0 14px 32px -20px var(--accent); }
+  .lp-header{ all:unset; box-sizing:border-box; display:flex; align-items:center; gap:11px; width:100%; padding:14px 16px; cursor:pointer; }
+  .lp-icon{ flex:none; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--accent-soft); color:var(--accent); }
+  .lp-icon svg{ width:18px; height:18px; }
+  .lp-text{ flex:1; min-width:0; }
+  .lp-title{ font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .lp-preview{ font-size:11px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px; }
+  .lp-card.open .lp-preview{ display:none; }
+  .lp-meta{ display:none; font-size:10px; color:var(--text-dim); font-family:'JetBrains Mono',monospace; margin-top:3px; }
+  .lp-card.open .lp-meta{ display:block; }
+  .lp-chevron{ flex:none; color:var(--text-dim); transition:transform .3s; }
+  .lp-card.open .lp-chevron{ transform:rotate(180deg); color:var(--accent); }
+  .lp-wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s cubic-bezier(.4,0,.2,1); }
+  .lp-card.open .lp-wrap{ grid-template-rows:1fr; }
+  .lp-inner{ overflow:hidden; min-height:0; }
+  .lp-content{ padding:2px 16px 16px; }
+  .lp-row{ display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--border); }
+  .lp-content .lp-row:last-of-type{ border-bottom:none; }
+  .lp-rank{ flex:none; width:24px; height:24px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-family:'Audiowide',cursive; font-size:11px; color:#fff; }
+  .lp-rank.r1{ background:linear-gradient(135deg,var(--pink),var(--purple)); }
+  .lp-rank.r2{ background:linear-gradient(135deg,var(--purple),var(--cyan)); }
+  .lp-rank.r3{ background:linear-gradient(135deg,var(--cyan),var(--pink)); }
+  .lp-row-title{ flex:1; font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .lp-row-trend{ font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; flex:none; }
+  .lp-row-trend.up{ color:var(--up); } .lp-row-trend.down{ color:var(--down); } .lp-row-trend.flat{ color:var(--text-dim); }
+  .lp-lock{ width:100%; margin-top:6px; border:1px dashed var(--purple); background:var(--purple-soft); border-radius:10px; padding:11px; display:flex; align-items:center; justify-content:center; gap:8px; color:var(--text); font-size:12px; font-weight:600; }
+
+  /* ---------------- PRICING ---------------- */
+  .price-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media (max-width:700px){ .price-grid{ grid-template-columns:1fr; } }
+  .price-card{ background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:32px; }
+  .price-card.premium{ border-color:var(--purple); background:linear-gradient(160deg, rgba(139,92,246,.10), rgba(219,39,119,.06)); position:relative; }
+  .price-card .tag{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--text-dimmer); margin-bottom:6px; }
+  .price-card.premium .tag{ color:var(--purple); }
+  .price-card .amount{ font-family:'Bebas Neue',cursive; font-size:38px; margin-bottom:4px; }
+  .price-card .amount small{ font-family:'Inter',sans-serif; font-size:13px; color:var(--text-dim); font-weight:400; }
+  .price-card .note{ font-size:11px; color:var(--text-dimmer); margin-bottom:22px; font-family:'JetBrains Mono',monospace; }
+  .price-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .price-list li{ display:flex; align-items:flex-start; gap:10px; font-size:13.5px; color:var(--text-dim); line-height:1.5; }
+  .price-list li svg{ flex:none; margin-top:2px; }
+  .price-card.premium .price-list li svg{ color:var(--purple); }
+  .price-card:not(.premium) .price-list li svg{ color:var(--text-dimmer); }
+
+  /* ---------------- BRAND STORY ---------------- */
+  .story{ text-align:center; }
+  .story-mark{ margin:0 auto 24px; width:120px; }
+  .story p{ max-width:60ch; margin:0 auto; color:var(--text-dim); font-size:16px; line-height:1.8; }
+  .story .accent{ color:var(--text); font-weight:600; }
+
+  /* ---------------- FINAL CTA ---------------- */
+  .final-cta{ background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:52px 40px; text-align:center; position:relative; overflow:hidden; }
+  @media (max-width:640px){ .final-cta{ padding:36px 22px; } }
+  .waitlist-form{ display:flex; gap:10px; max-width:420px; margin:26px auto 10px; flex-wrap:wrap; justify-content:center; }
+  .waitlist-form input{ flex:1; min-width:200px; border:1px solid var(--border); background:var(--bg); color:var(--text); padding:13px 16px; border-radius:10px; font-size:14px; font-family:inherit; }
+  .waitlist-form input:focus{ outline:2px solid var(--purple); outline-offset:1px; }
+  .waitlist-form button{ border:none; padding:13px 22px; border-radius:10px; background:linear-gradient(90deg,var(--pink),var(--purple)); color:#fff; font-weight:700; font-size:14px; white-space:nowrap; }
+  .waitlist-note{ font-size:11.5px; color:var(--text-dimmer); font-family:'JetBrains Mono',monospace; }
+  .waitlist-success{ font-size:13.5px; color:var(--up); margin-top:14px; display:none; }
+
+  /* ---------------- FOOTER ---------------- */
+  footer{ border-top:1px solid var(--border); padding-block:36px; }
+  .footer-inner{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  .footer-brand{ display:flex; align-items:center; gap:8px; color:var(--text-dim); font-size:13px; }
+  .footer-links{ display:flex; gap:22px; flex-wrap:wrap; }
+  .footer-links a{ font-size:13px; color:var(--text-dimmer); }
+  .footer-links a:hover{ color:var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="nav-brand" href="#top">
+      <svg width="24" height="16" viewBox="0 0 220 130">
+        <defs>
+          <linearGradient id="navRing" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#db2777"/>
+            <stop offset="100%" stop-color="#8b5cf6"/>
+          </linearGradient>
+        </defs>
+        <rect x="18" y="20" width="24" height="90" rx="12" fill="#f3f1fa"></rect>
+        <circle cx="140" cy="65" r="48" fill="none" stroke="url(#navRing)" stroke-width="18"></circle>
+        <circle cx="140" cy="65" r="11" fill="#06b6d4"></circle>
+      </svg>
+      <span class="nav-brand-text">TOP TEN HITS</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#kategoriler">Kategoriler</a>
+      <a href="#onizleme">Canlı Önizleme</a>
+      <a href="#premium">Premium</a>
+      <a href="#katil">İletişim</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="nav-cta" onclick="document.getElementById('katil').scrollIntoView({behavior:'smooth'})">Bekleme Listesi</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div class="wrap nav-mobile" id="navMobile">
+    <a href="#kategoriler">Kategoriler</a>
+    <a href="#onizleme">Canlı Önizleme</a>
+    <a href="#premium">Premium</a>
+    <a href="#katil">İletişim</a>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-glow" style="top:-80px;left:-100px;width:360px;height:360px;background:var(--pink);"></div>
+  <div class="hero-glow" style="top:120px;right:-120px;width:420px;height:420px;background:var(--purple);"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <h1>ŞU AN NE POPÜLER?<br><span>10 SANİYEDE ÖĞREN.</span></h1>
+      <p class="lead">Spotify, Netflix, TikTok, Trendyol, X ve daha fazlasının Top 10 listelerini tek bir dikey akışta topladık. 80'lerin kaset kültürünü, bugünün FOMO hızına taşıyan retro-modern trend hub'ı.</p>
+      <div class="hero-ctas">
+        <div class="store-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17.5 2.5c.3 1.3-.3 2.6-1 3.4-.8.9-2 1.6-3.2 1.5-.2-1.2.4-2.5 1.1-3.3.8-.9 2.1-1.6 3.1-1.6zM20.5 17c-.6 1.4-1 2-1.7 3.2-1 1.6-2.4 3.6-4.2 3.6-1.5 0-2-1-4-1s-2.6 1-4 1c-1.8 0-3.1-1.8-4.1-3.4C.7 17.4-.3 12.8 1.4 9.7c.9-1.6 2.5-2.6 4.1-2.6 1.6 0 2.6 1 4 1 1.3 0 2.1-1 4-1 1.5 0 3 .8 4 2.1-3.5 2-2.9 7.1.9 8.8z"></path></svg>
+          <div class="store-text"><small>İndir</small><b>App Store</b></div>
+          <span class="pill-soon">YAKINDA</span>
+        </div>
+        <div class="store-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 2.5l13 9.5-13 9.5v-19z"></path><path d="M16 12l4.5-2.6c1 .6 1 2.6 0 3.2L16 12z"></path></svg>
+          <div class="store-text"><small>İndir</small><b>Google Play</b></div>
+          <span class="pill-soon">YAKINDA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone-mock">
+      <div class="phone-screen">
+        <div class="pm-top">
+          <div class="pm-brand">
+            <svg width="14" height="9" viewBox="0 0 220 130"><rect x="18" y="20" width="24" height="90" rx="12" fill="#f3f1fa"></rect><circle cx="140" cy="65" r="48" fill="none" stroke="url(#navRing)" stroke-width="18"></circle><circle cx="140" cy="65" r="11" fill="#06b6d4"></circle></svg>
+            TOP TEN HITS
+          </div>
+          <div class="pm-loc">İstanbul, TR</div>
+        </div>
+        <div class="pm-tabs">
+          <span class="pm-tab active">İzle & Dinlen</span>
+          <span class="pm-tab">Alışveriş</span>
+          <span class="pm-tab">Gündem</span>
+        </div>
+        <div class="pm-body">
+          <div class="pm-card">
+            <div class="pm-card-head">
+              <div class="pm-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.8a3.2 3.2 0 1 1-2.2-3.03"></path><path d="M14 3c.3 2.2 1.8 3.8 4 4.1"></path></svg></div>
+              <div class="pm-card-title">Viral Sesler · TikTok</div>
+            </div>
+            <div class="pm-row"><div class="pm-rank r1">1</div><div class="pm-row-title">Yaz Dansı Challenge</div><div class="pm-row-trend">▲5</div></div>
+            <div class="pm-row"><div class="pm-rank r2">2</div><div class="pm-row-title">Ofis Molası Trendi</div><div class="pm-row-trend" style="color:var(--text-dimmer);">— yeni</div></div>
+            <div class="pm-row" style="border-bottom:none;"><div class="pm-rank r3">3</div><div class="pm-row-title">Retro Filtre Akımı</div><div class="pm-row-trend">▲2</div></div>
+          </div>
+          <div class="pm-card-collapsed">
+            <div class="pm-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="12" r="4"></circle><circle cx="7" cy="12" r="1.2" fill="currentColor"></circle><circle cx="17" cy="12" r="4"></circle><circle cx="17" cy="12" r="1.2" fill="currentColor"></circle></svg></div>
+            <div style="min-width:0;">
+              <div class="pm-collapsed-title">Müzik · Spotify</div>
+              <div class="pm-collapsed-text">1. Gece Yarısı Sinyali · 2. Neon Sokaklar</div>
+            </div>
+          </div>
+          <div class="pm-card-collapsed">
+            <div class="pm-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M3 7l2.2-3.2h3L6 7z"></path></svg></div>
+            <div style="min-width:0;">
+              <div class="pm-collapsed-title">Dizi & Film · Netflix</div>
+              <div class="pm-collapsed-text">1. Kayıp Frekans · 2. Gece Devriyesi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM / SOLUTION ================= -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Neden Top Ten Hits?</div>
+    <h2 class="section-title">Gündemi kaçırma korkusuna<br>tek uygulamalık çözüm.</h2>
+    <p class="section-lead">Dijital dünyada popüler içerik o kadar hızlı değişiyor ki, "şu an ne oluyor?" sorusunun cevabı onlarca uygulamaya dağılmış durumda.</p>
+    <div class="ps-grid">
+      <div class="ps-card problem">
+        <h3>Mevcut Problem</h3>
+        <ul>
+          <li>Trendleri görmek için Spotify, Netflix, Trendyol, X, YouTube gibi onlarca uygulamayı tek tek gezmek gerekiyor.</li>
+          <li>Popüler içerik aşırı hızlı değiştiği için "bir şeyleri kaçırma korkusu" (FOMO) sürekli canlı kalıyor.</li>
+        </ul>
+      </div>
+      <div class="ps-card solution">
+        <h3>Top Ten Hits Çözümü</h3>
+        <ul>
+          <li>Tüm platformların canlı "Top 10" vitrinlerini tek bir dikey akışta birleştiriyoruz.</li>
+          <li>Şehrinde ve ülkende en çok neyin izlendiğini, dinlendiğini ve konuşulduğunu 10 saniyede gösteriyoruz.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section id="kategoriler" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="eyebrow">Tek Uygulama, Tüm Gündem</div>
+    <h2 class="section-title">3 sekme, sonsuz merak.</h2>
+    <p class="section-lead">Her sekme, kendi dünyasının en dikkat çekici kaynaklarını bir araya getiriyor — kapalı kartlarda bile ilk 3 sırayı önizleme olarak görürsün.</p>
+    <div class="cat-grid">
+      <div class="cat-card c1">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15v-3a8 8 0 0 1 16 0v3"></path><rect x="2" y="15" width="6" height="6" rx="2"></rect><rect x="16" y="15" width="6" height="6" rx="2"></rect></svg></div>
+        <h3>İzle & Dinlen</h3>
+        <p>Anlık video ve müzik trendleri — en yüksek etkileşimli platformlardan başlayarak.</p>
+        <div class="chip-row">
+          <span class="chip">TikTok</span><span class="chip">Instagram</span><span class="chip">YouTube</span><span class="chip">Spotify</span><span class="chip">Netflix</span><span class="chip">Radyo Top 40</span>
+        </div>
+      </div>
+      <div class="cat-card c2">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.4"></circle><circle cx="17" cy="20" r="1.4"></circle><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"></path></svg></div>
+        <h3>Alışveriş</h3>
+        <p>E-ticaret vitrinlerinde şu an neyin çok satıldığını ve sipariş edildiğini gösteren tüketim panosu.</p>
+        <div class="chip-row">
+          <span class="chip">Trendyol</span><span class="chip">Yemeksepeti</span><span class="chip">Hepsiburada</span>
+        </div>
+      </div>
+      <div class="cat-card c3">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 15h16M10 3L7 21M17 3l-3 18"></path></svg></div>
+        <h3>Gündem & Kültür</h3>
+        <p>Sosyal gündemden spor tutkusuna, kitaptan tiyatroya — kültürel nabzı tutan geniş bir yelpaze.</p>
+        <div class="chip-row">
+          <span class="chip">X</span><span class="chip">Spor</span><span class="chip">Google Trends</span><span class="chip">Kitap</span><span class="chip">Sinema</span><span class="chip">Tiyatro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIVE PREVIEW ================= -->
+<section id="onizleme">
+  <div class="wrap">
+    <div class="eyebrow">Gerçek Uygulamadan Bir Kesit</div>
+    <h2 class="section-title">Kartlara dokun, Top 10'u aç.</h2>
+    <p class="section-lead">Aşağıdaki önizleme gerçek uygulama arayüzünden alınmıştır — başlıklara tıklayarak deneyebilirsin. Veriler örnektir.</p>
+    <div class="preview-shell">
+      <div class="lp-toolbar"><span id="lpToggle" style="cursor:pointer;">Tümünü Genişlet</span></div>
+      <div id="lpList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section id="premium" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="eyebrow">Freemium</div>
+    <h2 class="section-title">Hızlı bakış ücretsiz,<br>derin keşif Premium.</h2>
+    <p class="section-lead">Lokal merakını hiçbir zaman ödeme duvarına takılmadan giderebilirsin. Küresel ve derin analitik ise Premium'da.</p>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="tag">Ücretsiz</div>
+        <div class="amount">₺0</div>
+        <div class="note">süresiz</div>
+        <ul class="price-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Mevcut ülke + il bazında Top 10</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Genel kategori filtreleri</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Sadece canlı / güncel veri</li>
+        </ul>
+      </div>
+      <div class="price-card premium">
+        <div class="tag">Premium</div>
+        <div class="amount">₺49,99<small> /ay</small></div>
+        <div class="note">örnek fiyat</div>
+        <ul class="price-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Top 50 ve Top 100 derin liste</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Tüm dünya + şehir/ilçe kırılımı</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Yaş grubu ve cinsiyet filtreleri</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>"Tarihte Bugün" 80'ler arşivi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BRAND STORY ================= -->
+<section class="story">
+  <div class="wrap">
+    <svg class="story-mark" viewBox="0 0 220 130">
+      <defs>
+        <linearGradient id="storyRing" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#db2777"/>
+          <stop offset="100%" stop-color="#8b5cf6"/>
+        </linearGradient>
+      </defs>
+      <rect x="18" y="20" width="24" height="90" rx="12" fill="#f3f1fa"></rect>
+      <circle cx="140" cy="65" r="48" fill="none" stroke="url(#storyRing)" stroke-width="18"></circle>
+      <circle cx="140" cy="65" r="11" fill="#06b6d4"></circle>
+      <line x1="140" y1="65" x2="140" y2="34" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"></line>
+      <line x1="140" y1="65" x2="165" y2="80" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"></line>
+      <line x1="140" y1="65" x2="115" y2="80" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"></line>
+    </svg>
+    <div class="eyebrow" style="justify-content:center;">Marka Hikayesi</div>
+    <p>Kaset bantları, radyo kadranları, Billboard'un parlak rozetleri... <span class="accent">Top Ten Hits</span>, 80'lerin ikonik "top 10" kültürünü alıp bugünün FOMO hızına taşıyor. Retro estetik, modern bir merak makinesiyle buluşuyor.</p>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section id="katil">
+  <div class="wrap">
+    <div class="final-cta">
+      <div class="eyebrow" style="justify-content:center;">Yakında</div>
+      <h2 class="section-title" style="margin-bottom:6px;">İlk sen haber al.</h2>
+      <p class="section-lead" style="margin:0 auto;">Uygulama yayına girdiğinde e-postanla bildirim gönderelim.</p>
+      <form class="waitlist-form" id="waitlistForm">
+        <input type="email" name="email" id="waitlistEmail" placeholder="e-posta adresin" required>
+        <button type="submit" id="waitlistBtn">Haber Ver Bana</button>
+      </form>
+      <div class="waitlist-note" id="waitlistNote">E-posta adresin sadece lansman bildirimi için kullanılır.</div>
+      <div class="waitlist-success" id="waitlistSuccess">✓ Teşekkürler — seni haberdar edeceğiz.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <svg width="18" height="12" viewBox="0 0 220 130"><rect x="18" y="20" width="24" height="90" rx="12" fill="#9d95b8"></rect><circle cx="140" cy="65" r="48" fill="none" stroke="#9d95b8" stroke-width="18"></circle><circle cx="140" cy="65" r="11" fill="#9d95b8"></circle></svg>
+      <span>© 2026 Top Ten Hits</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Gizlilik</a>
+      <a href="#">KVKK Aydınlatma Metni</a>
+      <a href="#">İletişim</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var navToggle = document.getElementById('navToggle');
+  var navMobile = document.getElementById('navMobile');
+  navToggle.addEventListener('click', function(){ navMobile.classList.toggle('open'); });
+  navMobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ navMobile.classList.remove('open'); }); });
+
+  var ICONS = {
+    tiktok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.8a3.2 3.2 0 1 1-2.2-3.03"></path><path d="M14 3c.3 2.2 1.8 3.8 4 4.1"></path></svg>',
+    reel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="12" r="4"></circle><circle cx="7" cy="12" r="1.2" fill="currentColor"></circle><circle cx="17" cy="12" r="4"></circle><circle cx="17" cy="12" r="1.2" fill="currentColor"></circle></svg>',
+    hash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 15h16M10 3L7 21M17 3l-3 18"></path></svg>'
+  };
+
+  var LP_CHARTS = [
+    { id:'tiktok', accent:'pink', icon:'tiktok', title:'Viral Sesler & Trendler · TikTok', freshness:'45 dk önce', items:[
+      {rank:1,title:'Yaz Dansı Challenge',dir:'up',val:'5'},
+      {rank:2,title:'Ofis Molası Trendi',dir:'flat'},
+      {rank:3,title:'Retro Filtre Akımı',dir:'up',val:'2'},
+      {rank:4,title:'Mutfak Hilesi #47',dir:'down',val:'1'},
+      {rank:5,title:'Sabah Rutini Şarkısı',dir:'up',val:'1'}
+    ]},
+    { id:'spotify', accent:'cyan', icon:'reel', title:'Müzik · Spotify TR Top 10', freshness:'1 saat önce', items:[
+      {rank:1,title:'Gece Yarısı Sinyali',dir:'up',val:'3'},
+      {rank:2,title:'Neon Sokaklar',dir:'up',val:'1'},
+      {rank:3,title:'Sahilde Kayıp',dir:'down',val:'1'},
+      {rank:4,title:'Roket Aşkı',dir:'flat'},
+      {rank:5,title:'Yağmur Kasedi',dir:'up',val:'2'}
+    ]},
+    { id:'x', accent:'purple', icon:'hash', title:'Gündem Başlıkları · X', freshness:'22 dk önce', items:[
+      {rank:1,title:'#RetroDalga',dir:'up',val:'4'},
+      {rank:2,title:'Yeni Sezon Finali',dir:'flat'},
+      {rank:3,title:'#TeknolojiTR',dir:'up',val:'2'},
+      {rank:4,title:'Hafta Sonu Konseri',dir:'down',val:'1'},
+      {rank:5,title:'#YapayZeka',dir:'up',val:'1'}
+    ]}
+  ];
+
+  function trendHtml(item){
+    var symbol = item.dir === 'up' ? '▲ ' : item.dir === 'down' ? '▼ ' : '— ';
+    var text = item.dir === 'flat' ? 'yeni' : (item.val || '');
+    return '<div class="lp-row-trend ' + item.dir + '">' + symbol + text + '</div>';
+  }
+  function buildRow(item){
+    var rankClass = item.rank <= 3 ? ('r' + item.rank) : '';
+    var rankStyle = item.rank > 3 ? ' style="background:var(--surface-2);border:1px solid var(--border);"' : '';
+    return '<div class="lp-row"><div class="lp-rank ' + rankClass + '"' + rankStyle + '>' + item.rank + '</div>'
+      + '<div class="lp-row-title">' + item.title + '</div>' + trendHtml(item) + '</div>';
+  }
+  function buildCard(chart, isOpen){
+    var rowsHtml = chart.items.map(buildRow).join('');
+    var previewText = chart.items.slice(0,3).map(function(it,i){ return (i+1)+'. '+it.title; }).join(' · ');
+    return '<div class="lp-card' + (isOpen?' open':'') + '" style="--accent:var(--' + chart.accent + ');--accent-soft:var(--' + chart.accent + '-soft);">'
+      + '<button class="lp-header" type="button">'
+      + '<div class="lp-icon">' + ICONS[chart.icon] + '</div>'
+      + '<div class="lp-text"><div class="lp-title">' + chart.title + '</div>'
+      + '<div class="lp-preview">' + previewText + '</div>'
+      + '<div class="lp-meta">Son güncelleme: ' + chart.freshness + ' · örnek veri</div></div>'
+      + '<svg class="lp-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>'
+      + '</button>'
+      + '<div class="lp-wrap"><div class="lp-inner"><div class="lp-content">' + rowsHtml
+      + '<button class="lp-lock" type="button" onclick="document.getElementById(\'premium\').scrollIntoView({behavior:\'smooth\'})">Top 50 için Premium\'a Geç</button>'
+      + '</div></div></div></div>';
+  }
+
+  var lpList = document.getElementById('lpList');
+  lpList.innerHTML = LP_CHARTS.map(function(c,i){ return buildCard(c, i===0); }).join('');
+  lpList.addEventListener('click', function(e){
+    var header = e.target.closest('.lp-header');
+    if (header){ header.closest('.lp-card').classList.toggle('open'); }
+  });
+  document.getElementById('lpToggle').addEventListener('click', function(){
+    var cards = lpList.querySelectorAll('.lp-card');
+    var allOpen = Array.prototype.every.call(cards, function(c){ return c.classList.contains('open'); });
+    cards.forEach(function(c){ c.classList.toggle('open', !allOpen); });
+    this.textContent = allOpen ? 'Tümünü Genişlet' : 'Tümünü Daralt';
+  });
+
+  var WAITLIST_ENDPOINT = 'https://formspree.io/f/xdekonkz';
+  document.getElementById('waitlistForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var form = this;
+    var btn = document.getElementById('waitlistBtn');
+    var note = document.getElementById('waitlistNote');
+    var success = document.getElementById('waitlistSuccess');
+    success.style.display = 'none';
+    note.style.color = '';
+    note.textContent = 'E-posta adresin sadece lansman bildirimi için kullanılır.';
+    btn.disabled = true;
+    btn.textContent = 'Gönderiliyor...';
+
+    fetch(WAITLIST_ENDPOINT, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(response){
+      if (response.ok){
+        success.style.display = 'block';
+        form.reset();
+      } else {
+        response.json().then(function(data){
+          var msg = (data && data.errors && data.errors[0] && data.errors[0].message) || 'Bir şeyler ters gitti, tekrar dener misin?';
+          note.textContent = msg;
+          note.style.color = 'var(--down)';
+        }).catch(function(){
+          note.textContent = 'Bir şeyler ters gitti, tekrar dener misin?';
+          note.style.color = 'var(--down)';
+        });
+      }
+    }).catch(function(){
+      note.textContent = 'Bağlantı hatası — tekrar dener misin?';
+      note.style.color = 'var(--down)';
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = 'Haber Ver Bana';
+    });
+  });
+})();
+</script>
+</body>
+</html>
