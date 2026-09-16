@@ -92,7 +92,11 @@
   .pm-tab.active.acc-pink{ border-color:var(--pink); background:var(--pink-soft); color:var(--pink); }
   .pm-tab.active.acc-cyan{ border-color:var(--cyan); background:var(--cyan-soft); color:var(--cyan); }
   .pm-tab.active.acc-purple{ border-color:var(--purple); background:var(--purple-soft); color:var(--purple); }
-  .pm-body{ flex:1; padding:0 14px 14px; overflow:hidden; }
+  .pm-body{ flex:1; min-height:0; padding:0 14px 14px; overflow-y:auto; scrollbar-width:none; }
+  .pm-body::-webkit-scrollbar{ width:0; height:0; }
+  .pm-divider{ display:flex; align-items:center; gap:8px; margin:14px 0 8px; }
+  .pm-divider span{ font-family:'JetBrains Mono',monospace; font-size:7.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-dimmer); white-space:nowrap; }
+  .pm-divider::after{ content:''; flex:1; height:1px; background:var(--border); }
   .pm-card{ background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:10px 11px; margin-bottom:9px; transition:border-color .45s ease, box-shadow .45s ease; }
   .pm-card.open{ border-color:var(--accent); box-shadow:0 10px 24px -16px var(--accent); }
   .pm-card-head{ display:flex; align-items:center; gap:8px; }
@@ -148,6 +152,15 @@
 
   /* ---------------- LIVE PREVIEW (reused accordion) ---------------- */
   .preview-shell{ max-width:460px; margin:0 auto; }
+  .lp-tabbar{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .lp-tabbtn{ font-family:'JetBrains Mono',monospace; font-size:11px; padding:8px 14px; border-radius:999px; border:1px solid var(--border); background:var(--surface); color:var(--text-dim); font-weight:600; transition:background .2s,border-color .2s,color .2s; }
+  .lp-tabbtn.active{ font-weight:700; }
+  .lp-tabbtn.active.acc-pink{ border-color:var(--pink); background:var(--pink-soft); color:var(--pink); }
+  .lp-tabbtn.active.acc-cyan{ border-color:var(--cyan); background:var(--cyan-soft); color:var(--cyan); }
+  .lp-tabbtn.active.acc-purple{ border-color:var(--purple); background:var(--purple-soft); color:var(--purple); }
+  .lp-section-label{ display:flex; align-items:center; gap:10px; margin:22px 2px 12px; }
+  .lp-section-label span{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dimmer); white-space:nowrap; }
+  .lp-section-label::after{ content:''; flex:1; height:1px; background:var(--border); }
   .lp-toolbar{ display:flex; justify-content:flex-end; margin-bottom:10px; }
   .lp-toolbar span{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-dimmer); }
   .lp-card{ background:var(--surface); border:1px solid var(--border); border-radius:16px; margin-bottom:14px; transition:box-shadow .3s, border-color .3s; }
@@ -156,7 +169,12 @@
   .lp-icon{ flex:none; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--accent-soft); color:var(--accent); }
   .lp-icon svg{ width:18px; height:18px; }
   .lp-text{ flex:1; min-width:0; }
-  .lp-title{ font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .lp-title{ display:flex; align-items:center; gap:6px; min-width:0; }
+  .lp-title-text{ font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+  .feature-badge{ flex:none; font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:700; letter-spacing:.04em; padding:2px 6px; border-radius:4px; border:1px dashed var(--accent); color:var(--accent); }
+  .lp-row-meta{ font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; color:var(--cyan); flex:none; margin-right:6px; }
+  .lp-note p{ margin:0 0 12px; font-size:12.5px; line-height:1.6; color:var(--text-dim); }
+  .lp-note-cta{ width:100%; border:1px dashed var(--border); background:none; border-radius:10px; padding:11px; color:var(--text-dim); font-size:12.5px; font-weight:600; opacity:.7; }
   .lp-preview{ font-size:11px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px; }
   .lp-card.open .lp-preview{ display:none; }
   .lp-meta{ display:none; font-size:10px; color:var(--text-dim); font-family:'JetBrains Mono',monospace; margin-top:3px; }
@@ -344,7 +362,7 @@
         <h3>İzle & Dinlen</h3>
         <p>Anlık video ve müzik trendleri — en yüksek etkileşimli platformlardan başlayarak.</p>
         <div class="chip-row">
-          <span class="chip">TikTok</span><span class="chip">Instagram</span><span class="chip">YouTube</span><span class="chip">Spotify</span><span class="chip">Netflix</span><span class="chip">Radyo Top 40</span>
+          <span class="chip">TikTok</span><span class="chip">Instagram</span><span class="chip">YouTube</span><span class="chip">Spotify</span><span class="chip">Netflix</span><span class="chip">Radyo Top 40</span><span class="chip">Uygulama & Oyun</span>
         </div>
       </div>
       <div class="cat-card c2">
@@ -372,8 +390,13 @@
   <div class="wrap">
     <div class="eyebrow">Gerçek Uygulamadan Bir Kesit</div>
     <h2 class="section-title">Kartlara dokun, Top 10'u aç.</h2>
-    <p class="section-lead">Aşağıdaki önizleme gerçek uygulama arayüzünden alınmıştır — başlıklara tıklayarak deneyebilirsin. Veriler örnektir.</p>
+    <p class="section-lead">Aşağıdaki önizleme gerçek uygulama arayüzünden alınmıştır — sekmeleri ve başlıkları deneyebilirsin. Tüm kategoriler burada. Veriler örnektir.</p>
     <div class="preview-shell">
+      <div class="lp-tabbar" id="lpTabBar">
+        <button class="lp-tabbtn" type="button" data-tab="0">İzle & Dinlen</button>
+        <button class="lp-tabbtn" type="button" data-tab="1">Alışveriş</button>
+        <button class="lp-tabbtn" type="button" data-tab="2">Gündem & Kültür</button>
+      </div>
       <div class="lp-toolbar"><span id="lpToggle" style="cursor:pointer;">Tümünü Genişlet</span></div>
       <div id="lpList"></div>
     </div>
@@ -480,12 +503,19 @@
     youtube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="4"></rect><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"></path></svg>',
     cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.4"></circle><circle cx="17" cy="20" r="1.4"></circle><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"></path></svg>',
     food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v7a3 3 0 0 0 6 0V3M9 10v11M17 3c-1.6 0-3 1.6-3 4s1.4 4 3 4v10"></path></svg>',
-    ball: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"></circle><path d="M12 5v4.3M12 14.7V19M5 12h4.3M14.7 12H19"></path></svg>'
+    ball: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"></circle><path d="M12 5v4.3M12 14.7V19M5 12h4.3M14.7 12H19"></path></svg>',
+    film: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M3 7l2.2-3.2h3L6 7zM9.4 7l2.2-3.2h3L12.4 7zM15.8 7l2.2-3.2h2L18 7z"></path></svg>',
+    radio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="9" width="16" height="10" rx="2"></rect><circle cx="9" cy="14" r="1.7"></circle><path d="M14 14h3M13 9L18 4M18 4l-3 .4M18 4l-.4 3"></path></svg>',
+    gamepad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="10" rx="5"></rect><path d="M7 11v4M5 13h4"></path><circle cx="16" cy="11.5" r="1" fill="currentColor" stroke="none"></circle><circle cx="18.5" cy="14" r="1" fill="currentColor" stroke="none"></circle></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4.5h6.5a2.5 2.5 0 0 1 2.5 2.5v13a2.2 2.2 0 0 0-2.2-1.5H4z"></path><path d="M20 4.5h-6.5A2.5 2.5 0 0 0 11 7v13a2.2 2.2 0 0 1 2.2-1.5H20z"></path></svg>',
+    ticket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.8a1.7 1.7 0 0 0 0 3.4v1.8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.8a1.7 1.7 0 0 0 0-3.4z"></path><path d="M12 6.5v11" stroke-dasharray="2 2.4"></path></svg>',
+    mask: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10c0-3.3 2.2-5.5 5.2-5.5 1.7 0 2.8.8 2.8.8s1.1-.8 2.8-.8c3 0 5.2 2.2 5.2 5.5 0 4.4-4.5 8.5-8 8.5s-8-4.1-8-8.5z"></path><path d="M9 11.5s1 1.3 3 1.3 3-1.3 3-1.3" fill="none"></path></svg>',
+    trend: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 5h6v6"></path></svg>'
   };
 
-  /* ---------- hero phone auto-tour ---------- */
+  /* ---------- hero phone auto-tour (mirrors every category in the real app) ---------- */
   var HERO_TABS = [
-    { label:'İzle & Dinlen', accent:'pink', cards:[
+    { label:'İzle & Dinlen', accent:'pink', entries:[
       { icon:'tiktok', accent:'pink', title:'Viral Sesler · TikTok', items:[
         {rank:1,title:'Yaz Dansı Challenge',dir:'up'},
         {rank:2,title:'Ofis Molası Trendi',dir:'flat'},
@@ -496,9 +526,29 @@
         {rank:1,title:'Bir Günlük Vlog Serüveni',dir:'up'},
         {rank:2,title:'Sokak Röportajı',dir:'flat'},
         {rank:3,title:'Mutfakta 10 Dakika',dir:'up'}
+      ]},
+      { icon:'reel', accent:'pink', title:'Müzik · Spotify TR Top 10', items:[
+        {rank:1,title:'Gece Yarısı Sinyali',dir:'up'},
+        {rank:2,title:'Neon Sokaklar',dir:'up'},
+        {rank:3,title:'Sahilde Kayıp',dir:'down'}
+      ]},
+      { icon:'film', accent:'cyan', title:'Dizi & Film · Netflix', items:[
+        {rank:1,title:'Kayıp Frekans',dir:'flat'},
+        {rank:2,title:'Gece Devriyesi',dir:'up'},
+        {rank:3,title:'Son Kaset',dir:'up'}
+      ]},
+      { icon:'radio', accent:'purple', title:'Radyo Top 40', badge:'RETRO ÖZEL', items:[
+        {rank:1,title:'Kalbim Sokakta',dir:'up'},
+        {rank:2,title:'Otobüs Durağı',dir:'flat'},
+        {rank:3,title:'İkinci Bahar',dir:'up'}
+      ]},
+      { icon:'gamepad', accent:'pink', title:'Uygulama & Oyun Top 10', items:[
+        {rank:1,title:'Kelime Ustası',dir:'up'},
+        {rank:2,title:'Retro Runner',dir:'flat'},
+        {rank:3,title:'Sohbet Küpü',dir:'up'}
       ]}
     ]},
-    { label:'Alışveriş', accent:'cyan', cards:[
+    { label:'Alışveriş', accent:'cyan', entries:[
       { icon:'cart', accent:'cyan', title:'Flaş Ürünler · Trendyol', items:[
         {rank:1,title:'Kablosuz Kulaklık Pro',dir:'up'},
         {rank:2,title:'Retro Bluetooth Hoparlör',dir:'up'},
@@ -510,7 +560,7 @@
         {rank:3,title:"Lahmacun (5'li)",dir:'up'}
       ]}
     ]},
-    { label:'Gündem', accent:'purple', cards:[
+    { label:'Gündem', accent:'purple', entries:[
       { icon:'hash', accent:'pink', title:'Gündem Başlıkları · X', items:[
         {rank:1,title:'#RetroDalga',dir:'up'},
         {rank:2,title:'Yeni Sezon Finali',dir:'flat'},
@@ -520,15 +570,37 @@
         {rank:1,title:'Derbi Maçı Sonucu',dir:'up'},
         {rank:2,title:'Transfer Sürprizi',dir:'up'},
         {rank:3,title:'Milli Takım Kadrosu',dir:'flat'}
+      ]},
+      { icon:'trend', accent:'purple', title:'Google Trends', items:[
+        {rank:1,title:'hava durumu istanbul',dir:'flat'},
+        {rank:2,title:'dolar kuru',dir:'up'},
+        {rank:3,title:'yeni film vizyon',dir:'up'}
+      ]},
+      { divider:'Kültür & Sanat' },
+      { icon:'book', accent:'pink', title:'Çok Satanlar · Kitap', items:[
+        {rank:1,title:'Gece Treni',dir:'up'},
+        {rank:2,title:'Zihnin Haritası',dir:'flat'},
+        {rank:3,title:'Unutulan Şehir',dir:'up'}
+      ]},
+      { icon:'ticket', accent:'cyan', title:'Gişe Listesi · Sinema', items:[
+        {rank:1,title:'Son Sahil',dir:'up'},
+        {rank:2,title:'Galaksi Avcıları 3',dir:'flat'},
+        {rank:3,title:'Şehrin Gölgesi',dir:'up'}
+      ]},
+      { icon:'mask', accent:'purple', title:'Tiyatro', items:[
+        {rank:1,title:'Bir Zamanlar İstanbul',dir:'up'},
+        {rank:2,title:'Sessizliğin Sesi',dir:'flat'},
+        {rank:3,title:'Aile Toplantısı',dir:'up'}
       ]}
     ]}
   ];
-  var HERO_STEPS = [
-    { tab:0, open:0 },
-    { tab:0, open:2 },
-    { tab:1, open:0 },
-    { tab:2, open:0 }
-  ];
+  /* build steps: cycle every openable entry within a tab before moving to the next tab */
+  var HERO_STEPS = [];
+  HERO_TABS.forEach(function(tabData, tabIndex){
+    tabData.entries.forEach(function(entry, entryIndex){
+      if (!entry.divider) HERO_STEPS.push({ tab:tabIndex, open:entryIndex });
+    });
+  });
 
   function heroTrendHtml(item){
     if (!item) return '';
@@ -541,6 +613,9 @@
       + '<div class="pm-row-title">' + item.title + '</div>' + heroTrendHtml(item) + '</div>';
   }
   function buildHeroCard(card, isOpen){
+    if (card.divider){
+      return '<div class="pm-divider"><span>' + card.divider + '</span></div>';
+    }
     var badge = card.badge ? '<span class="pm-badge">' + card.badge + '</span>' : '';
     var preview = card.items ? card.items.slice(0,2).map(function(it,i){ return (i+1)+'. '+it.title; }).join(' · ') : card.preview;
     var rows = card.items ? card.items.map(buildHeroRow).join('') : '<div class="pm-row" style="padding-left:0;"><div class="pm-row-title" style="white-space:normal;font-weight:400;color:var(--text-dim);">' + card.preview + '</div></div>';
@@ -553,6 +628,7 @@
   }
 
   var heroTabBtns = document.querySelectorAll('#heroTabBar .pm-tab');
+  var heroCardListEl = document.getElementById('heroCardList');
   var heroCurrentTab = -1;
   function applyHeroStep(stepIndex){
     var step = HERO_STEPS[stepIndex];
@@ -565,13 +641,26 @@
     });
     if (heroCurrentTab !== step.tab){
       heroCurrentTab = step.tab;
-      document.getElementById('heroCardList').innerHTML = tabData.cards.map(function(c, i){
+      heroCardListEl.innerHTML = tabData.entries.map(function(c, i){
         return buildHeroCard(c, i === step.open);
       }).join('');
+      heroCardListEl.parentElement.scrollTop = 0;
     } else {
-      document.querySelectorAll('#heroCardList .pm-card').forEach(function(el, i){
-        el.classList.toggle('open', i === step.open);
-      });
+      var nodes = heroCardListEl.children;
+      for (var i = 0; i < nodes.length; i++){
+        nodes[i].classList.toggle('open', i === step.open);
+      }
+    }
+    var container = heroCardListEl.parentElement;
+    var target = heroCardListEl.children[step.open];
+    if (target && container){
+      var targetTop = target.offsetTop;
+      var targetBottom = targetTop + target.offsetHeight;
+      var viewTop = container.scrollTop;
+      var viewBottom = viewTop + container.clientHeight;
+      if (targetTop < viewTop || targetBottom > viewBottom){
+        container.scrollTo({ top: Math.max(0, targetTop - 8), behavior:'smooth' });
+      }
     }
   }
 
@@ -585,27 +674,114 @@
     }, 2600);
   }
 
-  var LP_CHARTS = [
-    { id:'tiktok', accent:'pink', icon:'tiktok', title:'Viral Sesler & Trendler · TikTok', freshness:'45 dk önce', items:[
-      {rank:1,title:'Yaz Dansı Challenge',dir:'up',val:'5'},
-      {rank:2,title:'Ofis Molası Trendi',dir:'flat'},
-      {rank:3,title:'Retro Filtre Akımı',dir:'up',val:'2'},
-      {rank:4,title:'Mutfak Hilesi #47',dir:'down',val:'1'},
-      {rank:5,title:'Sabah Rutini Şarkısı',dir:'up',val:'1'}
+  var LP_TABS = [
+    { label:'İzle & Dinlen', accent:'pink', items:[
+      { id:'tiktok', accent:'pink', icon:'tiktok', title:'Viral Sesler & Trendler · TikTok', freshness:'45 dk önce', rows:[
+        {rank:1,title:'Yaz Dansı Challenge',dir:'up',val:'5'},
+        {rank:2,title:'Ofis Molası Trendi',dir:'flat'},
+        {rank:3,title:'Retro Filtre Akımı',dir:'up',val:'2'},
+        {rank:4,title:'Mutfak Hilesi #47',dir:'down',val:'1'},
+        {rank:5,title:'Sabah Rutini Şarkısı',dir:'up',val:'1'}
+      ]},
+      { id:'instagram', accent:'cyan', icon:'camera', title:'Instagram · Reels', badge:'DEĞERLENDİRMEDE', type:'note',
+        note:'Instagram, platform genelinde "trend olan" içerikleri üçüncü taraflara açan bir API sunmuyor. Bu yüzden global bir Top 10 yerine, hesabını bağlayan kullanıcıya özel bir "Trend Radarın" konsepti değerlendiriliyor.',
+        ctaLabel:'Hesabını Bağla (Yakında)' },
+      { id:'youtube', accent:'purple', icon:'youtube', title:'Trend Videolar · YouTube TR', freshness:'1 saat önce', rows:[
+        {rank:1,title:'Bir Günlük Vlog Serüveni',dir:'up',val:'2'},
+        {rank:2,title:'Sokak Röportajı: Trend Sorular',dir:'flat'},
+        {rank:3,title:'Mutfakta 10 Dakika',dir:'up',val:'4'},
+        {rank:4,title:'Oyun İçi Rekor Denemesi',dir:'down',val:'1'},
+        {rank:5,title:'Şehir Turu: Gizli Kalmış Yerler',dir:'up',val:'1'}
+      ]},
+      { id:'spotify', accent:'pink', icon:'reel', title:'Müzik · Spotify TR Top 10', freshness:'1 saat önce', rows:[
+        {rank:1,title:'Gece Yarısı Sinyali',dir:'up',val:'3'},
+        {rank:2,title:'Neon Sokaklar',dir:'up',val:'1'},
+        {rank:3,title:'Sahilde Kayıp',dir:'down',val:'1'},
+        {rank:4,title:'Roket Aşkı',dir:'flat'},
+        {rank:5,title:'Yağmur Kasedi',dir:'up',val:'2'}
+      ]},
+      { id:'netflix', accent:'cyan', icon:'film', title:'Dizi & Film · Netflix TR Top 10', freshness:'bugün 09:00', rows:[
+        {rank:1,title:'Kayıp Frekans',dir:'flat'},
+        {rank:2,title:'Gece Devriyesi',dir:'up',val:'1'},
+        {rank:3,title:'Son Kaset',dir:'up',val:'5'},
+        {rank:4,title:'Şehrin Efsanesi',dir:'down',val:'1'},
+        {rank:5,title:'Zaman Tüneli',dir:'flat'}
+      ]},
+      { id:'radyo', accent:'purple', icon:'radio', title:'Radyo Top 40', badge:'RETRO ÖZEL', freshness:'30 dk önce', rows:[
+        {rank:1,title:'Kalbim Sokakta',dir:'up',val:'2'},
+        {rank:2,title:'Otobüs Durağı',dir:'flat'},
+        {rank:3,title:'İkinci Bahar',dir:'up',val:'1'},
+        {rank:4,title:'Sen ve Ben',dir:'down',val:'1'},
+        {rank:5,title:'Şehrin Kalbi',dir:'up',val:'3'}
+      ]},
+      { id:'oyun', accent:'pink', icon:'gamepad', title:'Uygulama & Oyun Top 10', freshness:'2 saat önce', rows:[
+        {rank:1,title:'Kelime Ustası',dir:'up',val:'2'},
+        {rank:2,title:'Retro Runner',dir:'flat'},
+        {rank:3,title:'Sohbet Küpü',dir:'up',val:'4'},
+        {rank:4,title:'Yıldız Yarışı',dir:'down',val:'1'},
+        {rank:5,title:'Not Defteri Pro',dir:'up',val:'1'}
+      ]}
     ]},
-    { id:'spotify', accent:'cyan', icon:'reel', title:'Müzik · Spotify TR Top 10', freshness:'1 saat önce', items:[
-      {rank:1,title:'Gece Yarısı Sinyali',dir:'up',val:'3'},
-      {rank:2,title:'Neon Sokaklar',dir:'up',val:'1'},
-      {rank:3,title:'Sahilde Kayıp',dir:'down',val:'1'},
-      {rank:4,title:'Roket Aşkı',dir:'flat'},
-      {rank:5,title:'Yağmur Kasedi',dir:'up',val:'2'}
+    { label:'Alışveriş', accent:'cyan', items:[
+      { id:'trendyol', accent:'cyan', icon:'cart', title:'Flaş Ürünler · Trendyol', freshness:'3 saat önce', rows:[
+        {rank:1,title:'Kablosuz Kulaklık Pro',meta:'₺1.299',dir:'up',val:'2'},
+        {rank:2,title:'Retro Bluetooth Hoparlör',meta:'₺899',dir:'up',val:'1'},
+        {rank:3,title:'Mekanik Klavye Neon',meta:'₺1.599',dir:'flat'},
+        {rank:4,title:'Akıllı Bileklik',meta:'₺749',dir:'down',val:'1'},
+        {rank:5,title:'Kışlık Mont Unisex',meta:'₺1.199',dir:'up',val:'3'}
+      ]},
+      { id:'yemek', accent:'purple', icon:'food', title:'En Çok Sipariş · Yemeksepeti', freshness:'3 saat önce', rows:[
+        {rank:1,title:'Tavuk Döner Porsiyon',dir:'flat'},
+        {rank:2,title:'Karışık Pizza',dir:'up',val:'1'},
+        {rank:3,title:"Lahmacun (5'li)",dir:'up',val:'2'},
+        {rank:4,title:'Burger Menü',dir:'down',val:'1'},
+        {rank:5,title:'Sushi Tabağı',dir:'flat'}
+      ]}
     ]},
-    { id:'x', accent:'purple', icon:'hash', title:'Gündem Başlıkları · X', freshness:'22 dk önce', items:[
-      {rank:1,title:'#RetroDalga',dir:'up',val:'4'},
-      {rank:2,title:'Yeni Sezon Finali',dir:'flat'},
-      {rank:3,title:'#TeknolojiTR',dir:'up',val:'2'},
-      {rank:4,title:'Hafta Sonu Konseri',dir:'down',val:'1'},
-      {rank:5,title:'#YapayZeka',dir:'up',val:'1'}
+    { label:'Gündem & Kültür', accent:'purple', items:[
+      { id:'x', accent:'pink', icon:'hash', title:'Gündem Başlıkları · X', freshness:'22 dk önce', rows:[
+        {rank:1,title:'#RetroDalga',dir:'up',val:'4'},
+        {rank:2,title:'Yeni Sezon Finali',dir:'flat'},
+        {rank:3,title:'#TeknolojiTR',dir:'up',val:'2'},
+        {rank:4,title:'Hafta Sonu Konseri',dir:'down',val:'1'},
+        {rank:5,title:'#YapayZeka',dir:'up',val:'1'}
+      ]},
+      { id:'spor', accent:'cyan', icon:'ball', title:'Spor Gündemi', freshness:'40 dk önce', rows:[
+        {rank:1,title:'Derbi Maçı Sonucu',dir:'up',val:'5'},
+        {rank:2,title:'Transfer Sürprizi',dir:'up',val:'2'},
+        {rank:3,title:'Milli Takım Kadrosu',dir:'flat'},
+        {rank:4,title:'Sakatlık Haberi',dir:'down',val:'1'},
+        {rank:5,title:'Şampiyonluk Yarışı',dir:'up',val:'3'}
+      ]},
+      { id:'gtrends', accent:'purple', icon:'trend', title:'Anlık Arama Sıçramaları · Google Trends', freshness:'22 dk önce', rows:[
+        {rank:1,title:'hava durumu istanbul',dir:'flat'},
+        {rank:2,title:'dolar kuru',dir:'up',val:'1'},
+        {rank:3,title:'yeni film vizyon',dir:'up',val:'3'},
+        {rank:4,title:'maç sonucu',dir:'down',val:'1'},
+        {rank:5,title:'resmi tatil 2026',dir:'up',val:'2'}
+      ]},
+      { type:'divider', label:'Kültür & Sanat' },
+      { id:'kitap', accent:'pink', icon:'book', title:'Çok Satanlar · D&R & Kitapyurdu', freshness:'bugün 07:00', rows:[
+        {rank:1,title:'Gece Treni',dir:'up',val:'2'},
+        {rank:2,title:'Zihnin Haritası',dir:'flat'},
+        {rank:3,title:'Unutulan Şehir',dir:'up',val:'1'},
+        {rank:4,title:'Küçük Adımlar Felsefesi',dir:'down',val:'1'},
+        {rank:5,title:'Yıldızların Altında',dir:'up',val:'3'}
+      ]},
+      { id:'sinema', accent:'cyan', icon:'ticket', title:'Haftalık Gişe Listesi · Sinema', freshness:'dün gişe kapanışı', rows:[
+        {rank:1,title:'Son Sahil',dir:'up',val:'1'},
+        {rank:2,title:'Galaksi Avcıları 3',dir:'flat'},
+        {rank:3,title:'Şehrin Gölgesi',dir:'up',val:'4'},
+        {rank:4,title:'Aşkın Rengi',dir:'down',val:'1'},
+        {rank:5,title:'Zaman Kapanı',dir:'up',val:'2'}
+      ]},
+      { id:'tiyatro', accent:'purple', icon:'mask', title:'En Çok Bilet Satan Oyunlar · Tiyatro', freshness:'2 saat önce', rows:[
+        {rank:1,title:'Bir Zamanlar İstanbul',dir:'up',val:'2'},
+        {rank:2,title:'Sessizliğin Sesi',dir:'flat'},
+        {rank:3,title:'Aile Toplantısı',dir:'up',val:'3'},
+        {rank:4,title:'Kayıp Kelimeler',dir:'down',val:'1'},
+        {rank:5,title:'Rüya Perdesi',dir:'up',val:'1'}
+      ]}
     ]}
   ];
 
@@ -617,32 +793,70 @@
   function buildRow(item){
     var rankClass = item.rank <= 3 ? ('r' + item.rank) : '';
     var rankStyle = item.rank > 3 ? ' style="background:var(--surface-2);border:1px solid var(--border);"' : '';
+    var metaVal = item.meta ? '<div class="lp-row-meta">' + item.meta + '</div>' : '';
     return '<div class="lp-row"><div class="lp-rank ' + rankClass + '"' + rankStyle + '>' + item.rank + '</div>'
-      + '<div class="lp-row-title">' + item.title + '</div>' + trendHtml(item) + '</div>';
+      + '<div class="lp-row-title">' + item.title + '</div>' + metaVal + trendHtml(item) + '</div>';
   }
   function buildCard(chart, isOpen){
-    var rowsHtml = chart.items.map(buildRow).join('');
-    var previewText = chart.items.slice(0,3).map(function(it,i){ return (i+1)+'. '+it.title; }).join(' · ');
+    var badge = chart.badge ? '<span class="feature-badge">' + chart.badge + '</span>' : '';
+    var previewText, metaLine, bodyHtml;
+    if (chart.type === 'note'){
+      previewText = 'Kişiselleştirilmiş "Trend Radarın" · yakında';
+      metaLine = 'Durum: Teknik değerlendirme';
+      bodyHtml = '<div class="lp-note"><p>' + chart.note + '</p>'
+        + '<button class="lp-note-cta" type="button" disabled>' + chart.ctaLabel + '</button></div>';
+    } else {
+      var rowsHtml = chart.rows.map(buildRow).join('');
+      previewText = chart.rows.slice(0,3).map(function(it,i){ return (i+1)+'. '+it.title; }).join(' · ');
+      metaLine = 'Son güncelleme: ' + chart.freshness + ' · örnek veri';
+      bodyHtml = rowsHtml + '<button class="lp-lock" type="button" onclick="document.getElementById(\'premium\').scrollIntoView({behavior:\'smooth\'})">Top 50 için Premium\'a Geç</button>';
+    }
     return '<div class="lp-card' + (isOpen?' open':'') + '" style="--accent:var(--' + chart.accent + ');--accent-soft:var(--' + chart.accent + '-soft);">'
       + '<button class="lp-header" type="button">'
       + '<div class="lp-icon">' + ICONS[chart.icon] + '</div>'
-      + '<div class="lp-text"><div class="lp-title">' + chart.title + '</div>'
+      + '<div class="lp-text"><div class="lp-title"><span class="lp-title-text">' + chart.title + '</span>' + badge + '</div>'
       + '<div class="lp-preview">' + previewText + '</div>'
-      + '<div class="lp-meta">Son güncelleme: ' + chart.freshness + ' · örnek veri</div></div>'
+      + '<div class="lp-meta">' + metaLine + '</div></div>'
       + '<svg class="lp-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>'
       + '</button>'
-      + '<div class="lp-wrap"><div class="lp-inner"><div class="lp-content">' + rowsHtml
-      + '<button class="lp-lock" type="button" onclick="document.getElementById(\'premium\').scrollIntoView({behavior:\'smooth\'})">Top 50 için Premium\'a Geç</button>'
+      + '<div class="lp-wrap"><div class="lp-inner"><div class="lp-content">' + bodyHtml
       + '</div></div></div></div>';
   }
 
   var lpList = document.getElementById('lpList');
-  lpList.innerHTML = LP_CHARTS.map(function(c,i){ return buildCard(c, i===0); }).join('');
+  var lpToggle = document.getElementById('lpToggle');
+  var lpTabBtns = document.querySelectorAll('#lpTabBar .lp-tabbtn');
+
+  function renderLpTab(tabIndex){
+    var tab = LP_TABS[tabIndex];
+    var openAssigned = false;
+    lpList.innerHTML = tab.items.map(function(entry){
+      if (entry.type === 'divider'){
+        return '<div class="lp-section-label"><span>' + entry.label + '</span></div>';
+      }
+      var isOpen = !openAssigned;
+      openAssigned = true;
+      return buildCard(entry, isOpen);
+    }).join('');
+    lpTabBtns.forEach(function(btn, i){
+      btn.classList.remove('acc-pink','acc-cyan','acc-purple');
+      var active = i === tabIndex;
+      btn.classList.toggle('active', active);
+      if (active) btn.classList.add('acc-' + tab.accent);
+    });
+    lpToggle.textContent = 'Tümünü Genişlet';
+  }
+
+  lpTabBtns.forEach(function(btn, i){
+    btn.addEventListener('click', function(){ renderLpTab(i); });
+  });
+  renderLpTab(0);
+
   lpList.addEventListener('click', function(e){
     var header = e.target.closest('.lp-header');
     if (header){ header.closest('.lp-card').classList.toggle('open'); }
   });
-  document.getElementById('lpToggle').addEventListener('click', function(){
+  lpToggle.addEventListener('click', function(){
     var cards = lpList.querySelectorAll('.lp-card');
     var allOpen = Array.prototype.every.call(cards, function(c){ return c.classList.contains('open'); });
     cards.forEach(function(c){ c.classList.toggle('open', !allOpen); });
