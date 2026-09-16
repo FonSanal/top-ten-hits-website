@@ -72,32 +72,50 @@
   .pill-soon{ font-family:'JetBrains Mono',monospace; font-size:9px; padding:2px 6px; border-radius:4px; background:var(--purple-soft); color:var(--purple); margin-left:8px; }
 
   /* phone mock in hero */
-  .phone-mock{ position:relative; z-index:1; width:280px; height:580px; margin:0 auto; background:#05040a; border-radius:34px; border:7px solid #05040a; box-shadow:0 40px 80px -30px rgba(20,10,45,.6); overflow:hidden; }
+  .phone-stage{ position:relative; z-index:1; display:flex; justify-content:center; }
+  .phone-spotlight{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:380px; height:640px; background:radial-gradient(closest-side, rgba(219,39,119,.34), rgba(139,92,246,.2) 55%, transparent 76%); filter:blur(55px); z-index:0; pointer-events:none; }
+  .phone-mock{
+    position:relative; z-index:1; width:280px; height:580px; margin:0 auto; border-radius:36px; overflow:hidden;
+    background:
+      linear-gradient(#05040a,#05040a) padding-box,
+      linear-gradient(150deg, rgba(219,39,119,.65), rgba(139,92,246,.45) 45%, rgba(6,182,212,.6)) border-box;
+    border:2px solid transparent;
+    box-shadow: 0 55px 100px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08);
+  }
   .phone-screen{ position:absolute; inset:0; background:var(--bg); display:flex; flex-direction:column; }
   .pm-top{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px 8px; flex:none; }
   .pm-brand{ display:flex; align-items:center; gap:6px; font-family:'Bebas Neue',cursive; font-size:12px; letter-spacing:.05em; }
   .pm-loc{ font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dimmer); }
   .pm-tabs{ display:flex; gap:6px; padding:4px 14px 10px; }
-  .pm-tab{ font-family:'JetBrains Mono',monospace; font-size:9px; padding:5px 9px; border-radius:999px; border:1px solid var(--border); color:var(--text-dimmer); }
-  .pm-tab.active{ border-color:var(--pink); background:var(--pink-soft); color:var(--pink); font-weight:700; }
-  .pm-body{ flex:1; padding:0 14px 14px; }
-  .pm-card{ background:var(--surface); border:1px solid var(--pink); border-radius:13px; padding:11px; margin-bottom:10px; box-shadow:0 10px 24px -16px var(--pink); }
-  .pm-card-head{ display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-  .pm-card-ic{ width:24px; height:24px; border-radius:7px; background:var(--pink-soft); color:var(--pink); display:flex; align-items:center; justify-content:center; }
-  .pm-card-ic svg{ width:13px; height:13px; }
-  .pm-card-title{ font-size:10.5px; font-weight:700; }
-  .pm-row{ display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid var(--border); }
-  .pm-row:last-child{ border-bottom:none; }
-  .pm-rank{ width:17px; height:17px; border-radius:5px; font-family:'Audiowide',cursive; font-size:8px; display:flex; align-items:center; justify-content:center; color:#fff; flex:none; }
+  .pm-tab{ font-family:'JetBrains Mono',monospace; font-size:9px; padding:5px 9px; border-radius:999px; border:1px solid var(--border); color:var(--text-dimmer); background:none; transition:background .35s ease,border-color .35s ease,color .35s ease; }
+  .pm-tab.active{ font-weight:700; }
+  .pm-tab.active.acc-pink{ border-color:var(--pink); background:var(--pink-soft); color:var(--pink); }
+  .pm-tab.active.acc-cyan{ border-color:var(--cyan); background:var(--cyan-soft); color:var(--cyan); }
+  .pm-tab.active.acc-purple{ border-color:var(--purple); background:var(--purple-soft); color:var(--purple); }
+  .pm-body{ flex:1; padding:0 14px 14px; overflow:hidden; }
+  .pm-card{ background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:10px 11px; margin-bottom:9px; transition:border-color .45s ease, box-shadow .45s ease; }
+  .pm-card.open{ border-color:var(--accent); box-shadow:0 10px 24px -16px var(--accent); }
+  .pm-card-head{ display:flex; align-items:center; gap:8px; }
+  .pm-card-ic{ width:22px; height:22px; border-radius:7px; background:var(--surface-2); color:var(--text-dimmer); display:flex; align-items:center; justify-content:center; flex:none; transition:background .45s ease, color .45s ease; }
+  .pm-card.open .pm-card-ic{ background:var(--accent-soft); color:var(--accent); }
+  .pm-card-ic svg{ width:12px; height:12px; }
+  .pm-card-title-row{ flex:1; min-width:0; display:flex; align-items:center; gap:5px; }
+  .pm-card-title{ font-size:10.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pm-badge{ flex:none; font-family:'JetBrains Mono',monospace; font-size:6.5px; font-weight:700; letter-spacing:.03em; padding:1.5px 4px; border-radius:3px; border:1px dashed var(--accent); color:var(--accent); }
+  .pm-card-preview{ font-size:8.5px; color:var(--text-dimmer); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pm-card.open .pm-card-preview{ display:none; }
+  .pm-rows-wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .5s cubic-bezier(.4,0,.2,1); }
+  .pm-card.open .pm-rows-wrap{ grid-template-rows:1fr; }
+  .pm-rows-inner{ overflow:hidden; min-height:0; }
+  .pm-row{ display:flex; align-items:center; gap:8px; padding:6px 0 0 30px; }
+  .pm-rank{ width:16px; height:16px; border-radius:5px; font-family:'Audiowide',cursive; font-size:7.5px; display:flex; align-items:center; justify-content:center; color:#fff; flex:none; }
   .pm-rank.r1{ background:linear-gradient(135deg,var(--pink),var(--purple)); }
   .pm-rank.r2{ background:linear-gradient(135deg,var(--purple),var(--cyan)); }
   .pm-rank.r3{ background:linear-gradient(135deg,var(--cyan),var(--pink)); }
-  .pm-row-title{ font-size:10px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .pm-row-trend{ font-family:'JetBrains Mono',monospace; font-size:8.5px; color:var(--up); flex:none; }
-  .pm-card-collapsed{ background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:10px 11px; margin-bottom:9px; display:flex; align-items:center; gap:8px; }
-  .pm-card-collapsed .pm-card-ic{ background:var(--cyan-soft); color:var(--cyan); }
-  .pm-collapsed-text{ font-size:9.5px; color:var(--text-dimmer); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
-  .pm-collapsed-title{ font-size:10px; font-weight:700; margin-bottom:2px; }
+  .pm-row-title{ font-size:9.5px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pm-row-trend{ font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:600; color:var(--text-dimmer); flex:none; }
+  .pm-row-trend.up{ color:var(--up); }
+  .pm-row-trend.down{ color:var(--down); }
 
   /* ---------------- PROBLEM / SOLUTION ---------------- */
   .ps-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
@@ -264,43 +282,24 @@
       </div>
     </div>
 
-    <div class="phone-mock">
-      <div class="phone-screen">
-        <div class="pm-top">
-          <div class="pm-brand">
-            <svg width="14" height="9" viewBox="0 0 220 130"><rect x="18" y="20" width="24" height="90" rx="12" fill="#f3f1fa"></rect><circle cx="140" cy="65" r="48" fill="none" stroke="url(#navRing)" stroke-width="18"></circle><circle cx="140" cy="65" r="11" fill="#06b6d4"></circle></svg>
-            TOP TEN HITS
-          </div>
-          <div class="pm-loc">İstanbul, TR</div>
-        </div>
-        <div class="pm-tabs">
-          <span class="pm-tab active">İzle & Dinlen</span>
-          <span class="pm-tab">Alışveriş</span>
-          <span class="pm-tab">Gündem</span>
-        </div>
-        <div class="pm-body">
-          <div class="pm-card">
-            <div class="pm-card-head">
-              <div class="pm-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.8a3.2 3.2 0 1 1-2.2-3.03"></path><path d="M14 3c.3 2.2 1.8 3.8 4 4.1"></path></svg></div>
-              <div class="pm-card-title">Viral Sesler · TikTok</div>
+    <div class="phone-stage">
+      <div class="phone-spotlight"></div>
+      <div class="phone-mock">
+        <div class="phone-screen">
+          <div class="pm-top">
+            <div class="pm-brand">
+              <svg width="14" height="9" viewBox="0 0 220 130"><rect x="18" y="20" width="24" height="90" rx="12" fill="#f3f1fa"></rect><circle cx="140" cy="65" r="48" fill="none" stroke="url(#navRing)" stroke-width="18"></circle><circle cx="140" cy="65" r="11" fill="#06b6d4"></circle></svg>
+              TOP TEN HITS
             </div>
-            <div class="pm-row"><div class="pm-rank r1">1</div><div class="pm-row-title">Yaz Dansı Challenge</div><div class="pm-row-trend">▲5</div></div>
-            <div class="pm-row"><div class="pm-rank r2">2</div><div class="pm-row-title">Ofis Molası Trendi</div><div class="pm-row-trend" style="color:var(--text-dimmer);">— yeni</div></div>
-            <div class="pm-row" style="border-bottom:none;"><div class="pm-rank r3">3</div><div class="pm-row-title">Retro Filtre Akımı</div><div class="pm-row-trend">▲2</div></div>
+            <div class="pm-loc">İstanbul, TR</div>
           </div>
-          <div class="pm-card-collapsed">
-            <div class="pm-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="12" r="4"></circle><circle cx="7" cy="12" r="1.2" fill="currentColor"></circle><circle cx="17" cy="12" r="4"></circle><circle cx="17" cy="12" r="1.2" fill="currentColor"></circle></svg></div>
-            <div style="min-width:0;">
-              <div class="pm-collapsed-title">Müzik · Spotify</div>
-              <div class="pm-collapsed-text">1. Gece Yarısı Sinyali · 2. Neon Sokaklar</div>
-            </div>
+          <div class="pm-tabs" id="heroTabBar">
+            <span class="pm-tab">İzle & Dinlen</span>
+            <span class="pm-tab">Alışveriş</span>
+            <span class="pm-tab">Gündem</span>
           </div>
-          <div class="pm-card-collapsed">
-            <div class="pm-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M3 7l2.2-3.2h3L6 7z"></path></svg></div>
-            <div style="min-width:0;">
-              <div class="pm-collapsed-title">Dizi & Film · Netflix</div>
-              <div class="pm-collapsed-text">1. Kayıp Frekans · 2. Gece Devriyesi</div>
-            </div>
+          <div class="pm-body">
+            <div id="heroCardList"></div>
           </div>
         </div>
       </div>
@@ -476,8 +475,115 @@
   var ICONS = {
     tiktok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.8a3.2 3.2 0 1 1-2.2-3.03"></path><path d="M14 3c.3 2.2 1.8 3.8 4 4.1"></path></svg>',
     reel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="12" r="4"></circle><circle cx="7" cy="12" r="1.2" fill="currentColor"></circle><circle cx="17" cy="12" r="4"></circle><circle cx="17" cy="12" r="1.2" fill="currentColor"></circle></svg>',
-    hash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 15h16M10 3L7 21M17 3l-3 18"></path></svg>'
+    hash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 15h16M10 3L7 21M17 3l-3 18"></path></svg>',
+    camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17" cy="7.2" r="1" fill="currentColor" stroke="none"></circle></svg>',
+    youtube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="4"></rect><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"></path></svg>',
+    cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.4"></circle><circle cx="17" cy="20" r="1.4"></circle><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"></path></svg>',
+    food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v7a3 3 0 0 0 6 0V3M9 10v11M17 3c-1.6 0-3 1.6-3 4s1.4 4 3 4v10"></path></svg>',
+    ball: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"></circle><path d="M12 5v4.3M12 14.7V19M5 12h4.3M14.7 12H19"></path></svg>'
   };
+
+  /* ---------- hero phone auto-tour ---------- */
+  var HERO_TABS = [
+    { label:'İzle & Dinlen', accent:'pink', cards:[
+      { icon:'tiktok', accent:'pink', title:'Viral Sesler · TikTok', items:[
+        {rank:1,title:'Yaz Dansı Challenge',dir:'up'},
+        {rank:2,title:'Ofis Molası Trendi',dir:'flat'},
+        {rank:3,title:'Retro Filtre Akımı',dir:'up'}
+      ]},
+      { icon:'camera', accent:'cyan', title:'Instagram · Reels', badge:'DEĞERLENDİRMEDE', preview:'Kişiselleştirilmiş "Trend Radarın" · yakında' },
+      { icon:'youtube', accent:'purple', title:'YouTube TR Top 10', items:[
+        {rank:1,title:'Bir Günlük Vlog Serüveni',dir:'up'},
+        {rank:2,title:'Sokak Röportajı',dir:'flat'},
+        {rank:3,title:'Mutfakta 10 Dakika',dir:'up'}
+      ]}
+    ]},
+    { label:'Alışveriş', accent:'cyan', cards:[
+      { icon:'cart', accent:'cyan', title:'Flaş Ürünler · Trendyol', items:[
+        {rank:1,title:'Kablosuz Kulaklık Pro',dir:'up'},
+        {rank:2,title:'Retro Bluetooth Hoparlör',dir:'up'},
+        {rank:3,title:'Mekanik Klavye Neon',dir:'flat'}
+      ]},
+      { icon:'food', accent:'purple', title:'Yemeksepeti', items:[
+        {rank:1,title:'Tavuk Döner Porsiyon',dir:'flat'},
+        {rank:2,title:'Karışık Pizza',dir:'up'},
+        {rank:3,title:"Lahmacun (5'li)",dir:'up'}
+      ]}
+    ]},
+    { label:'Gündem', accent:'purple', cards:[
+      { icon:'hash', accent:'pink', title:'Gündem Başlıkları · X', items:[
+        {rank:1,title:'#RetroDalga',dir:'up'},
+        {rank:2,title:'Yeni Sezon Finali',dir:'flat'},
+        {rank:3,title:'#TeknolojiTR',dir:'up'}
+      ]},
+      { icon:'ball', accent:'cyan', title:'Spor Gündemi', items:[
+        {rank:1,title:'Derbi Maçı Sonucu',dir:'up'},
+        {rank:2,title:'Transfer Sürprizi',dir:'up'},
+        {rank:3,title:'Milli Takım Kadrosu',dir:'flat'}
+      ]}
+    ]}
+  ];
+  var HERO_STEPS = [
+    { tab:0, open:0 },
+    { tab:0, open:2 },
+    { tab:1, open:0 },
+    { tab:2, open:0 }
+  ];
+
+  function heroTrendHtml(item){
+    if (!item) return '';
+    var symbol = item.dir === 'up' ? '▲' : item.dir === 'down' ? '▼' : '—';
+    return '<div class="pm-row-trend ' + item.dir + '">' + symbol + '</div>';
+  }
+  function buildHeroRow(item){
+    var rankClass = item.rank <= 3 ? ('r' + item.rank) : '';
+    return '<div class="pm-row"><div class="pm-rank ' + rankClass + '">' + item.rank + '</div>'
+      + '<div class="pm-row-title">' + item.title + '</div>' + heroTrendHtml(item) + '</div>';
+  }
+  function buildHeroCard(card, isOpen){
+    var badge = card.badge ? '<span class="pm-badge">' + card.badge + '</span>' : '';
+    var preview = card.items ? card.items.slice(0,2).map(function(it,i){ return (i+1)+'. '+it.title; }).join(' · ') : card.preview;
+    var rows = card.items ? card.items.map(buildHeroRow).join('') : '<div class="pm-row" style="padding-left:0;"><div class="pm-row-title" style="white-space:normal;font-weight:400;color:var(--text-dim);">' + card.preview + '</div></div>';
+    return '<div class="pm-card' + (isOpen ? ' open' : '') + '" style="--accent:var(--' + card.accent + ');--accent-soft:var(--' + card.accent + '-soft);">'
+      + '<div class="pm-card-head"><div class="pm-card-ic">' + ICONS[card.icon] + '</div>'
+      + '<div class="pm-card-title-row"><div class="pm-card-title">' + card.title + '</div>' + badge + '</div></div>'
+      + '<div class="pm-card-preview">' + preview + '</div>'
+      + '<div class="pm-rows-wrap"><div class="pm-rows-inner">' + rows + '</div></div>'
+      + '</div>';
+  }
+
+  var heroTabBtns = document.querySelectorAll('#heroTabBar .pm-tab');
+  var heroCurrentTab = -1;
+  function applyHeroStep(stepIndex){
+    var step = HERO_STEPS[stepIndex];
+    var tabData = HERO_TABS[step.tab];
+    heroTabBtns.forEach(function(btn, i){
+      btn.classList.remove('acc-pink','acc-cyan','acc-purple');
+      var active = i === step.tab;
+      btn.classList.toggle('active', active);
+      if (active) btn.classList.add('acc-' + tabData.accent);
+    });
+    if (heroCurrentTab !== step.tab){
+      heroCurrentTab = step.tab;
+      document.getElementById('heroCardList').innerHTML = tabData.cards.map(function(c, i){
+        return buildHeroCard(c, i === step.open);
+      }).join('');
+    } else {
+      document.querySelectorAll('#heroCardList .pm-card').forEach(function(el, i){
+        el.classList.toggle('open', i === step.open);
+      });
+    }
+  }
+
+  var heroStepIndex = 0;
+  applyHeroStep(0);
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion){
+    setInterval(function(){
+      heroStepIndex = (heroStepIndex + 1) % HERO_STEPS.length;
+      applyHeroStep(heroStepIndex);
+    }, 2600);
+  }
 
   var LP_CHARTS = [
     { id:'tiktok', accent:'pink', icon:'tiktok', title:'Viral Sesler & Trendler · TikTok', freshness:'45 dk önce', items:[
