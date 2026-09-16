@@ -9,8 +9,8 @@
   :root{
     --bg:#0b0a16; --bg-alt:#100e1c; --surface:#161327; --surface-2:#1f1a35; --border:#2c2645;
     --text:#f3f1fa; --text-dim:#a89fc2; --text-dimmer:#756c94;
-    --pink:#db2777; --purple:#8b5cf6; --cyan:#06b6d4;
-    --pink-soft:rgba(219,39,119,.14); --purple-soft:rgba(139,92,246,.14); --cyan-soft:rgba(6,182,212,.14);
+    --pink:#db2777; --purple:#8b5cf6; --cyan:#06b6d4; --gold:#f5a524;
+    --pink-soft:rgba(219,39,119,.14); --purple-soft:rgba(139,92,246,.14); --cyan-soft:rgba(6,182,212,.14); --gold-soft:rgba(245,165,36,.14);
     --up:#34d399; --down:#f87171;
   }
   @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
@@ -212,6 +212,28 @@
   .price-card.premium .price-list li svg{ color:var(--purple); }
   .price-card:not(.premium) .price-list li svg{ color:var(--text-dimmer); }
 
+  /* ---------------- BRAND SPONSORSHIP ---------------- */
+  .eyebrow.gold{ color:var(--gold); }
+  .eyebrow.gold::before{ background:var(--gold); }
+  .gold-text{ color:var(--gold); }
+  .sponsor-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px; }
+  @media (max-width:860px){ .sponsor-grid{ grid-template-columns:1fr; } }
+  .sponsor-card{ background:var(--surface); border:1px solid var(--gold); border-radius:16px; padding:20px; box-shadow:0 14px 30px -20px var(--gold); }
+  .sponsor-card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .sponsor-badge{ font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; letter-spacing:.06em; padding:3px 8px; border-radius:5px; background:var(--gold-soft); color:var(--gold); }
+  .sponsor-cat{ font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dimmer); }
+  .sponsor-title{ font-size:13.5px; font-weight:700; margin-bottom:12px; line-height:1.4; }
+  .sponsor-rows{ display:flex; flex-direction:column; gap:8px; }
+  .sponsor-row{ display:flex; align-items:center; gap:9px; font-size:12.5px; color:var(--text-dim); }
+  .sponsor-rank{ width:18px; height:18px; border-radius:5px; background:var(--gold-soft); color:var(--gold); font-family:'Audiowide',cursive; font-size:9px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .sponsor-disclaimer{ font-size:11px; color:var(--text-dimmer); font-family:'JetBrains Mono',monospace; margin-top:14px; text-align:center; }
+  .sponsor-features{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:40px; }
+  @media (max-width:700px){ .sponsor-features{ grid-template-columns:1fr; } }
+  .sponsor-feature{ display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--text-dim); }
+  .sponsor-cta-row{ margin-top:32px; text-align:center; }
+  .sponsor-cta{ border:none; padding:15px 28px; border-radius:12px; background:linear-gradient(90deg,var(--gold),#f97316); color:#1a1204; font-weight:700; font-size:14.5px; }
+  .sponsor-cta-note{ display:block; margin-top:12px; font-size:11.5px; color:var(--text-dimmer); font-family:'JetBrains Mono',monospace; }
+
   /* ---------------- BRAND STORY ---------------- */
   .story{ text-align:center; }
   .story-mark{ margin:0 auto 24px; width:120px; }
@@ -221,7 +243,11 @@
   /* ---------------- FINAL CTA ---------------- */
   .final-cta{ background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:52px 40px; text-align:center; position:relative; overflow:hidden; }
   @media (max-width:640px){ .final-cta{ padding:36px 22px; } }
-  .waitlist-form{ display:flex; gap:10px; max-width:420px; margin:26px auto 10px; flex-wrap:wrap; justify-content:center; }
+  .waitlist-audience{ display:flex; gap:8px; justify-content:center; margin-top:22px; }
+  .wa-btn{ font-family:'JetBrains Mono',monospace; font-size:11.5px; padding:8px 16px; border-radius:999px; border:1px solid var(--border); background:var(--bg); color:var(--text-dim); font-weight:600; }
+  .wa-btn.active{ border-color:var(--purple); background:var(--purple-soft); color:var(--purple); }
+  .wa-btn.active[data-audience="Marka/Kurum"]{ border-color:var(--gold); background:var(--gold-soft); color:var(--gold); }
+  .waitlist-form{ display:flex; gap:10px; max-width:420px; margin:16px auto 10px; flex-wrap:wrap; justify-content:center; }
   .waitlist-form input{ flex:1; min-width:200px; border:1px solid var(--border); background:var(--bg); color:var(--text); padding:13px 16px; border-radius:10px; font-size:14px; font-family:inherit; }
   .waitlist-form input:focus{ outline:2px solid var(--purple); outline-offset:1px; }
   .waitlist-form button{ border:none; padding:13px 22px; border-radius:10px; background:linear-gradient(90deg,var(--pink),var(--purple)); color:#fff; font-weight:700; font-size:14px; white-space:nowrap; }
@@ -259,6 +285,7 @@
       <a href="#kategoriler">Kategoriler</a>
       <a href="#onizleme">Canlı Önizleme</a>
       <a href="#premium">Premium</a>
+      <a href="#markalar">Markalar İçin</a>
       <a href="#katil">İletişim</a>
     </nav>
     <div style="display:flex;align-items:center;gap:10px;">
@@ -272,6 +299,7 @@
     <a href="#kategoriler">Kategoriler</a>
     <a href="#onizleme">Canlı Önizleme</a>
     <a href="#premium">Premium</a>
+    <a href="#markalar">Markalar İçin</a>
     <a href="#katil">İletişim</a>
   </div>
 </header>
@@ -435,6 +463,67 @@
   </div>
 </section>
 
+<!-- ================= BRAND SPONSORSHIP ================= -->
+<section id="markalar" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="eyebrow gold">Markalar İçin</div>
+    <h2 class="section-title">Kendi Top 10'unu listeye sok.</h2>
+    <p class="section-lead"><b class="gold-text">Marka Kuşağı</b>, kategorine özel sponsorlu bir chart kartıyla, "şu an ne popüler?" diye bakan milyonlarca meraklı kullanıcının karşısına çıkmanı sağlar. Bir marketin en çok satan 10 ürünü, bir TV kanalının en çok izlenen 10 programı, bir teslimat uygulamasının en çok sipariş edilen 10 ürünü — diğer chart'larla aynı vitrinde, ama senin markanla.</p>
+
+    <div class="sponsor-grid">
+      <div class="sponsor-card">
+        <div class="sponsor-card-top">
+          <span class="sponsor-badge">SPONSORLU</span>
+          <span class="sponsor-cat">Alışveriş</span>
+        </div>
+        <div class="sponsor-title">ÖrnekMarket · Haftanın En Çok Satan 10 Ürünü</div>
+        <div class="sponsor-rows">
+          <div class="sponsor-row"><span class="sponsor-rank">1</span><span>Kahvaltılık Set</span></div>
+          <div class="sponsor-row"><span class="sponsor-rank">2</span><span>Bahar Temizliği Paketi</span></div>
+          <div class="sponsor-row"><span class="sponsor-rank">3</span><span>Haftalık Meyve Kutusu</span></div>
+        </div>
+      </div>
+      <div class="sponsor-card">
+        <div class="sponsor-card-top">
+          <span class="sponsor-badge">SPONSORLU</span>
+          <span class="sponsor-cat">İzle & Dinlen</span>
+        </div>
+        <div class="sponsor-title">Ekran TV · En Çok İzlenen 10 Program</div>
+        <div class="sponsor-rows">
+          <div class="sponsor-row"><span class="sponsor-rank">1</span><span>Gece Yarısı Haberleri</span></div>
+          <div class="sponsor-row"><span class="sponsor-rank">2</span><span>Mutfak Yarışması</span></div>
+          <div class="sponsor-row"><span class="sponsor-rank">3</span><span>Pazar Sineması</span></div>
+        </div>
+      </div>
+      <div class="sponsor-card">
+        <div class="sponsor-card-top">
+          <span class="sponsor-badge">SPONSORLU</span>
+          <span class="sponsor-cat">Alışveriş</span>
+        </div>
+        <div class="sponsor-title">HızlıTeslimat · En Çok Sipariş Edilen 10 Ürün</div>
+        <div class="sponsor-rows">
+          <div class="sponsor-row"><span class="sponsor-rank">1</span><span>Soğuk Kahve</span></div>
+          <div class="sponsor-row"><span class="sponsor-rank">2</span><span>Atıştırmalık Kutusu</span></div>
+          <div class="sponsor-row"><span class="sponsor-rank">3</span><span>Enerji İçeceği</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sponsor-disclaimer">Yukarıdaki markalar ve ürünler temsilidir, gerçek bir iş birliğini göstermez.</div>
+
+    <div class="sponsor-features">
+      <div class="sponsor-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Kategorinde sabit, öne çıkan "Sponsorlu" kart</div>
+      <div class="sponsor-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Listeni istediğin zaman kendin güncelle</div>
+      <div class="sponsor-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Şehir ve kullanıcı segmentine göre hedefleme</div>
+      <div class="sponsor-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><path d="M5 13l4 4L19 7"></path></svg>Görüntülenme ve tıklama raporu</div>
+    </div>
+
+    <div class="sponsor-cta-row">
+      <button class="sponsor-cta" onclick="document.getElementById('waitlistAudienceBrand').click(); document.getElementById('katil').scrollIntoView({behavior:'smooth'});">Sponsorluk Teklifi Al</button>
+      <span class="sponsor-cta-note">Kategori başına sınırlı sayıda Marka Kuşağı yeri bulunuyor.</span>
+    </div>
+  </div>
+</section>
+
 <!-- ================= BRAND STORY ================= -->
 <section class="story">
   <div class="wrap">
@@ -461,11 +550,16 @@
 <section id="katil">
   <div class="wrap">
     <div class="final-cta">
-      <div class="eyebrow" style="justify-content:center;">Yakında</div>
-      <h2 class="section-title" style="margin-bottom:6px;">İlk sen haber al.</h2>
-      <p class="section-lead" style="margin:0 auto;">Uygulama yayına girdiğinde e-postanla bildirim gönderelim.</p>
+      <div class="eyebrow" style="justify-content:center;" id="katilEyebrow">Yakında</div>
+      <h2 class="section-title" style="margin-bottom:6px;" id="katilTitle">İlk sen haber al.</h2>
+      <p class="section-lead" style="margin:0 auto;" id="katilLead">Uygulama yayına girdiğinde e-postanla bildirim gönderelim.</p>
+      <div class="waitlist-audience" id="waitlistAudience">
+        <button type="button" class="wa-btn active" id="waitlistAudienceUser" data-audience="Kullanıcı">Kullanıcıyım</button>
+        <button type="button" class="wa-btn" id="waitlistAudienceBrand" data-audience="Marka/Kurum">Marka/Kurumum</button>
+      </div>
       <form class="waitlist-form" id="waitlistForm">
         <input type="email" name="email" id="waitlistEmail" placeholder="e-posta adresin" required>
+        <input type="hidden" name="ilgi_alani" id="waitlistAudienceInput" value="Kullanıcı">
         <button type="submit" id="waitlistBtn">Haber Ver Bana</button>
       </form>
       <div class="waitlist-note" id="waitlistNote">E-posta adresin sadece lansman bildirimi için kullanılır.</div>
@@ -863,6 +957,48 @@
     this.textContent = allOpen ? 'Tümünü Genişlet' : 'Tümünü Daralt';
   });
 
+  var WAITLIST_COPY = {
+    'Kullanıcı': {
+      eyebrow: 'Yakında',
+      title: 'İlk sen haber al.',
+      lead: 'Uygulama yayına girdiğinde e-postanla bildirim gönderelim.',
+      placeholder: 'e-posta adresin',
+      button: 'Haber Ver Bana',
+      note: 'E-posta adresin sadece lansman bildirimi için kullanılır.'
+    },
+    'Marka/Kurum': {
+      eyebrow: 'Marka Kuşağı',
+      title: 'Sponsorluk teklifini konuşalım.',
+      lead: 'Kurumsal e-postanı bırak, Marka Kuşağı fırsatları ve fiyatlandırma için seninle iletişime geçelim.',
+      placeholder: 'kurumsal e-posta adresin',
+      button: 'Teklif İste',
+      note: 'E-posta adresin sadece sponsorluk teklifi için kullanılır.'
+    }
+  };
+  var waEyebrow = document.getElementById('katilEyebrow');
+  var waTitle = document.getElementById('katilTitle');
+  var waLead = document.getElementById('katilLead');
+  var waEmailInput = document.getElementById('waitlistEmail');
+  var waBtnSubmit = document.getElementById('waitlistBtn');
+  var waNoteEl = document.getElementById('waitlistNote');
+  var waAudienceInput = document.getElementById('waitlistAudienceInput');
+  var waButtons = document.querySelectorAll('#waitlistAudience .wa-btn');
+  waButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      waButtons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var audience = btn.getAttribute('data-audience');
+      waAudienceInput.value = audience;
+      var copy = WAITLIST_COPY[audience];
+      waEyebrow.textContent = copy.eyebrow;
+      waTitle.textContent = copy.title;
+      waLead.textContent = copy.lead;
+      waEmailInput.placeholder = copy.placeholder;
+      waBtnSubmit.textContent = copy.button;
+      waNoteEl.textContent = copy.note;
+    });
+  });
+
   var WAITLIST_ENDPOINT = 'https://formspree.io/f/xdekonkz';
   document.getElementById('waitlistForm').addEventListener('submit', function(e){
     e.preventDefault();
@@ -870,9 +1006,10 @@
     var btn = document.getElementById('waitlistBtn');
     var note = document.getElementById('waitlistNote');
     var success = document.getElementById('waitlistSuccess');
+    var currentCopy = WAITLIST_COPY[waAudienceInput.value] || WAITLIST_COPY['Kullanıcı'];
     success.style.display = 'none';
     note.style.color = '';
-    note.textContent = 'E-posta adresin sadece lansman bildirimi için kullanılır.';
+    note.textContent = currentCopy.note;
     btn.disabled = true;
     btn.textContent = 'Gönderiliyor...';
 
@@ -899,7 +1036,7 @@
       note.style.color = 'var(--down)';
     }).finally(function(){
       btn.disabled = false;
-      btn.textContent = 'Haber Ver Bana';
+      btn.textContent = currentCopy.button;
     });
   });
 })();
